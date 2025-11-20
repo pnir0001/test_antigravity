@@ -1,0 +1,13 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+docs/CreateMemoRequest.md
+docs/DefaultApi.md
+docs/Memo.md
+docs/UpdateMemoRequest.md
+git_push.sh
+index.ts
