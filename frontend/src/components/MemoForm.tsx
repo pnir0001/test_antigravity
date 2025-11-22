@@ -56,71 +56,54 @@ export const MemoForm: React.FC<MemoFormProps> = ({ onSuccess, selectedMemo, onC
     };
 
     return (
-        <div style={{ marginBottom: '2rem', padding: '1rem', border: '1px solid #ddd', borderRadius: '4px' }}>
-            <h2>{isEditing ? 'Edit Memo' : 'Create New Memo'}</h2>
-            <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="title" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                        Title:
+        <div className="glass-panel" style={{ padding: '2rem', height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}>
+            <h2 style={{ marginTop: 0, marginBottom: '1.5rem' }}>{isEditing ? 'Edit Memo' : 'Create New Memo'}</h2>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <div style={{ marginBottom: '1.5rem' }}>
+                    <label htmlFor="title" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
+                        Title
                     </label>
                     <input
                         id="title"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        style={{ width: '100%', padding: '0.5rem', fontSize: '1rem', boxSizing: 'border-box' }}
+                        style={{ width: '100%', boxSizing: 'border-box' }}
                         disabled={loading}
+                        placeholder="Enter memo title..."
                     />
                 </div>
-                <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="content" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                        Content:
+                <div style={{ marginBottom: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <label htmlFor="content" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
+                        Content
                     </label>
                     <textarea
                         id="content"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        rows={10}
-                        style={{ width: '100%', padding: '0.5rem', fontSize: '1rem', boxSizing: 'border-box' }}
+                        style={{ width: '100%', flex: 1, boxSizing: 'border-box', resize: 'none', minHeight: '200px' }}
                         disabled={loading}
+                        placeholder="Write your thoughts here..."
                     />
                 </div>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                            backgroundColor: '#1890ff',
-                            color: 'white',
-                            border: 'none',
-                            padding: '0.75rem 1.5rem',
-                            fontSize: '1rem',
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.6 : 1,
-                            borderRadius: '4px'
-                        }}
-                    >
-                        {loading ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Memo' : 'Create Memo')}
-                    </button>
+                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
                     {isEditing && (
                         <button
                             type="button"
                             onClick={handleCancel}
                             disabled={loading}
-                            style={{
-                                backgroundColor: '#f0f0f0',
-                                color: '#333',
-                                border: '1px solid #ddd',
-                                padding: '0.75rem 1.5rem',
-                                fontSize: '1rem',
-                                cursor: loading ? 'not-allowed' : 'pointer',
-                                opacity: loading ? 0.6 : 1,
-                                borderRadius: '4px'
-                            }}
+                            className="btn-secondary"
                         >
                             Cancel
                         </button>
                     )}
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="btn-primary"
+                    >
+                        {loading ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Memo' : 'Create Memo')}
+                    </button>
                 </div>
             </form>
         </div>

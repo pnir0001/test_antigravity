@@ -3,7 +3,7 @@
 Antigravityの機能検証用メモアプリケーションです。
 React + Go + PostgreSQLを使用し、モダンなWebアプリケーション開発のベストプラクティスを実装しています。
 
-![App Screenshot](assets/app_screenshot.png)
+![App Screenshot](assets/glass_design.png)
 
 ## ✨ 特徴
 

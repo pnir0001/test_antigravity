@@ -77,49 +77,46 @@ export const MemoList: React.FC<MemoListProps> = ({ refreshKey, onDelete, onSele
         setDraggedIndex(null);
     };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div style={{ color: 'red' }}>{error}</div>;
+    if (loading) return <div style={{ color: 'var(--text-secondary)' }}>Loading...</div>;
+    if (error) return <div style={{ color: 'var(--danger-color)' }}>{error}</div>;
 
     return (
         <div>
-            <h2>Memos</h2>
+            <h2 style={{ marginBottom: '1rem', fontSize: '1.2rem', opacity: 0.8 }}>Memos ({memos.length})</h2>
             {memos.length === 0 ? (
-                <p>No memos found.</p>
+                <div className="glass-card" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                    No memos found.
+                </div>
             ) : (
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     {memos.map((memo, index) => (
                         <li
                             key={memo.id}
                             draggable
+                            className="glass-card"
                             onClick={() => onSelectMemo(memo)}
                             onDragStart={() => handleDragStart(index)}
                             onDragOver={(e) => handleDragOver(e, index)}
                             onDragEnd={handleDragEnd}
                             style={{
-                                marginBottom: '0.5rem',
+                                padding: '1rem',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '1rem',
-                                width: '100%',
-                                cursor: 'pointer',
-                                padding: '0.5rem',
-                                backgroundColor: selectedMemoId === memo.id ? '#e6f7ff' : (draggedIndex === index ? '#f0f0f0' : 'transparent'),
-                                border: selectedMemoId === memo.id ? '2px solid #1890ff' : '1px solid #ddd',
-                                borderRadius: '4px'
+                                justifyContent: 'space-between',
+                                cursor: 'grab',
+                                border: selectedMemoId === memo.id ? '1px solid var(--primary-color)' : undefined,
+                                background: selectedMemoId === memo.id ? 'rgba(255, 255, 255, 0.6)' : undefined,
+                                transform: draggedIndex === index ? 'scale(1.02)' : undefined,
+                                opacity: draggedIndex === index ? 0.8 : 1,
                             }}
                         >
-                            <span style={{ flex: 1 }}>{memo.title}</span>
+                            <span style={{ fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
+                                {memo.title}
+                            </span>
                             <button
                                 onClick={(e) => handleDeleteClick(e, memo.id)}
-                                style={{
-                                    backgroundColor: '#ff4d4f',
-                                    color: 'white',
-                                    border: 'none',
-                                    padding: '0.25rem 0.75rem',
-                                    cursor: 'pointer',
-                                    fontSize: '0.875rem',
-                                    borderRadius: '4px'
-                                }}
+                                className="btn-danger"
+                                style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
                             >
                                 Delete
                             </button>
@@ -136,46 +133,31 @@ export const MemoList: React.FC<MemoListProps> = ({ refreshKey, onDelete, onSele
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                    backdropFilter: 'blur(4px)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     zIndex: 1000
                 }}>
-                    <div style={{
-                        backgroundColor: 'white',
+                    <div className="glass-panel" style={{
                         padding: '2rem',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                         maxWidth: '400px',
-                        width: '90%'
+                        width: '90%',
+                        background: 'rgba(255, 255, 255, 0.8)'
                     }}>
-                        <h3 style={{ marginTop: 0 }}>確認</h3>
-                        <p>このメモを削除してもよろしいですか？</p>
-                        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+                        <h3 style={{ marginTop: 0, marginBottom: '1rem' }}>確認</h3>
+                        <p style={{ marginBottom: '2rem', color: 'var(--text-secondary)' }}>このメモを削除してもよろしいですか？</p>
+                        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
                             <button
                                 onClick={handleDeleteCancel}
-                                style={{
-                                    backgroundColor: '#f0f0f0',
-                                    color: '#333',
-                                    border: '1px solid #ddd',
-                                    padding: '0.5rem 1rem',
-                                    borderRadius: '4px',
-                                    cursor: 'pointer'
-                                }}
+                                className="btn-secondary"
                             >
                                 キャンセル
                             </button>
                             <button
                                 onClick={handleDeleteConfirm}
-                                style={{
-                                    backgroundColor: '#ff4d4f',
-                                    color: 'white',
-                                    border: 'none',
-                                    padding: '0.5rem 1rem',
-                                    borderRadius: '4px',
-                                    cursor: 'pointer'
-                                }}
+                                className="btn-danger"
                             >
                                 削除
                             </button>
